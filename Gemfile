@@ -39,6 +39,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+  gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'faker', '~> 1.6', '>= 1.6.6'
+  gem 'simplecov', '~> 0.12.0'
+  gem 'active_model_serializers', '~> 0.10.0'
 end
 
 group :development do
