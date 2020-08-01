@@ -41,7 +41,7 @@ RSpec.describe AccountsController, type: :request do
     end
   end
 
-  describe '#deposit' do
+  describe 'POST #deposit' do
     context 'with valid params' do
       it 'deposit into account' do
         account = create(:account)
@@ -50,6 +50,19 @@ RSpec.describe AccountsController, type: :request do
         post "/accounts/#{account.id}/deposit", params: { value: value }
 
         expect(json_body[:mensage]).to eq('deposited')
+      end
+    end
+  end
+
+  describe 'POST #withdraw' do
+    context 'with valid params' do
+      it 'withdraw into account' do
+        account = create(:account)
+        value = 200.5.to_f
+
+        post "/accounts/#{account.id}/withdraw", params: { value: value }
+
+        expect(json_body[:mensage]).to eq('withdrawn')
       end
     end
   end

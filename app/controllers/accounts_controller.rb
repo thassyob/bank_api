@@ -20,6 +20,13 @@ skip_before_action :verify_authenticity_token
     render json: { mensage: "deposited" }, status: :ok
   end
 
+  def withdraw
+    account = Account.find(params[:id])
+    account.balance = account.balance -= value_deposited.to_f
+    account.save!
+    render json: { mensage: "withdrawn" }, status: :ok
+  end
+
   private
 
   def create_params
