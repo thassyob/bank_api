@@ -13,6 +13,13 @@ skip_before_action :verify_authenticity_token
     head :no_content
   end
 
+  def deposit
+    account = Account.find(params[:id])
+    account.balance = account.balance += valor_deposited.to_f
+    account.save!
+    render json: { mensage: "deposited" }, status: :ok
+  end
+
   private
 
   def create_params
@@ -21,5 +28,9 @@ skip_before_action :verify_authenticity_token
 
   def update_params
     params.require(:account).permit(:name, :balance, :user_id)
+  end
+
+  def valor_deposited
+    params[:value]
   end
 end

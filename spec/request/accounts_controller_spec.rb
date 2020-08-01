@@ -40,4 +40,17 @@ RSpec.describe AccountsController, type: :request do
       end
     end
   end
+
+  describe '#deposit' do
+    context 'with valid params' do
+      it 'deposit into account' do
+        account = create(:account)
+        value = 200.5.to_f
+
+        post "/accounts/#{account.id}/deposit", params: { value: value }
+
+        expect(json_body[:mensage]).to eq('deposited')
+      end
+    end
+  end
 end
