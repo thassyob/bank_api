@@ -66,4 +66,24 @@ RSpec.describe AccountsController, type: :request do
       end
     end
   end
+
+  describe 'GET #show' do
+    context 'when find a account' do
+      it 'return 200 status code' do
+        account = create(:account)
+
+        get "/accounts/#{account.id}"
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'must return a balance' do
+        account = create(:account)
+
+        get "/accounts/#{account.id}"
+
+        expect(json_body).to have_key(:balance)
+      end
+    end
+  end
 end

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users, only: [:create]
 
-  resources :accounts, only: [:create, :update] do
+  resources :accounts, only: [:create, :update, :show] do
     member do
       post :deposit
       post :withdraw
