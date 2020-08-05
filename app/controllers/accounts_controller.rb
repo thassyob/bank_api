@@ -13,6 +13,12 @@ skip_before_action :verify_authenticity_token
     head :no_content
   end
 
+  def show
+    account = Account.find_by(id: params[:id])
+    render json: account, status: :ok,
+      serializer: Accounts::Show::AccountsSerializer
+  end
+
   def deposit
     account = Account.find(params[:id])
     account.balance = account.balance += value_typed.to_f
