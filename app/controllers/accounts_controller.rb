@@ -15,16 +15,26 @@ skip_before_action :verify_authenticity_token
 
   def deposit
     account = Account.find(params[:id])
-    account.balance = account.balance += value_deposited.to_f
+    account.balance = account.balance += value_typed.to_f
     account.save!
     render json: { mensage: "deposited" }, status: :ok
   end
 
   def withdraw
     account = Account.find(params[:id])
-    account.balance = account.balance -= value_deposited.to_f
+    account.balance = account.balance -= value_typed.to_f
     account.save!
     render json: { mensage: "withdrawn" }, status: :ok
+  end
+
+  def transfer
+    transfer_command = TransferOperation.new(params)
+    transfer_command.on(:success) do |mensage|
+      render json: { mensage: "transfer completed" }, status: :ok
+    end
+    transfer_command.on(:failed) do |errors|
+      render json: { errors: "transfer not completed" }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -37,7 +47,7 @@ skip_before_action :verify_authenticity_token
     params.require(:account).permit(:name, :balance, :user_id)
   end
 
-  def value_deposited
+  def value_typed
     params[:value]
   end
 end
