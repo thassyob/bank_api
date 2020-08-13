@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
 skip_before_action :verify_authenticity_token
+before_action :authenticate_user!, only: [:withdraw, :transfer]
 
   def create
    account = Account.create!(create_params)
